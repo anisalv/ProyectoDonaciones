@@ -144,9 +144,13 @@
   .btn-aceptar {
     background-color: #6ca40d; 
     color: #ffffff;
+  }  
+  .btn-recargar {
+    background-color: #1f9bab; 
+    color: #ffffff;
   } 
   .btn-deshabilitar {
-    background-color: #f81f1f; 
+    background-color: #ff7979; 
     color: #ffffff;
   }
   
