@@ -46,7 +46,7 @@
                 <li><button class="dropdown-item " type="button" routerLink="datavoluntarios" >Datos de Voluntarios</button></li>
                 <li><button class="dropdown-item " type="button" routerLink="tabdonadores" >Datos de Donadores</button></li>
                 <li><button class="dropdown-item " type="button" routerLink="tabreceptores" >Datos de Receptores</button></li>
-                <li><button class="dropdown-item " type="button" routerLink="tabdonaciones" >Datos de Donaciones</button></li>
+                <li><button class="dropdown-item " type="button" routerLink="datadonacion" >Datos de Donaciones</button></li>
               </ul>
             </div>
 
@@ -57,10 +57,10 @@
               </button>
               <ul class="dropdown-menu dropdown-menu-end ">
                 <li><button class="dropdown-item " type="button" (click)="enviarRolVoluntarioSol()" >Solicitud para ser Voluntario</button></li>
+                <li><button class="dropdown-item " type="button" (click)="escogerSubRolVol('Responsable')" >Solicitud para ser Voluntario-Responsable</button></li>
+                <li><button class="dropdown-item " type="button" (click)="escogerSubRolVol('Colaborador')" >Solicitud para ser Voluntario-Colaborador</button></li>
                 <li><button class="dropdown-item " type="button" (click)="enviarRolDonadorSol()" >Solicitud para ser Donador</button></li>
                 <li><button class="dropdown-item " type="button" (click)="enviarRolReceptorSol()" >Solicitud para ser Receptor</button></li>
-                <!-- <li><button class="dropdown-item " type="button"  >Solicitud para Representante de Org. Benéfica</button></li> -->
-                <!-- <li><button class="dropdown-item " type="button"  >Solicitud para Representante de Org. Receptora</button></li> -->
                 <li>
                   <!-- Button trigger modal -->
                   <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">

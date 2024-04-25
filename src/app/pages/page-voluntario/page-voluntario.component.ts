@@ -5,6 +5,9 @@ import { Producto } from '../../services/models/producto';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Usuario } from '../../services/auth/usuario';
 import { Router } from '@angular/router';
+import { urlGetDonNoRealizadasC } from '../../services/models/getDonNoRealizadas';
+import { currentUsuarioSimpleDataC } from '../../services/models/currentUsuarioSimpleData';
+import { urlGetAllSolicitudBC } from '../../services/models/urlGetAllSolicitudB';
 
 @Component({
   selector: 'app-page-voluntario',
@@ -13,43 +16,39 @@ import { Router } from '@angular/router';
 })
 export class PageVoluntarioComponent implements OnInit {
   // Variables
-  tblAlimentoRecoger: Alimento[] = [
-    {
-      id_alimento: 0, fecha_venc: 'x', estado: 'x', tipo: 'x', cantidad: 0,
-    },
-    {
-      id_alimento: 1, fecha_venc: 'y', estado: 'y', tipo: 'y', cantidad: 1,
-    },
-  ];
+  currentUsuarioSimpleData: currentUsuarioSimpleDataC =
+    new currentUsuarioSimpleDataC();
+  tblUrlGetDonNoRealizadas: urlGetDonNoRealizadasC[] = [];
+  tblUrlGetDonacionesNoRealizadasSinResponsable: urlGetDonNoRealizadasC[] = [];
+  tblUrlGetDonacionesNoRealizadasSinColaboradores: urlGetDonNoRealizadasC[] =
+    [];
+
+  
+  tblGetAllSolicitudB: urlGetAllSolicitudBC[] = [];
+  tblGetAllSolicitudBSinResponsable: urlGetAllSolicitudBC[] = [];
   tblAlimentoEntregar: Alimento[] = [
     {
-      id_alimento: 2, fecha_venc: 'z', estado: 'z', tipo: 'z', cantidad: 2,
-    },
-    // Agrega más registros según necesites
-    {
-      id_alimento: 3, fecha_venc: 'a', estado: 'a', tipo: 'a', cantidad: 3,
+      idAlimento: 2,
+      fecha_Vencimiento: 'z',
+      estado: 'z',
+      tipo: 'z',
+      cantidad: 2,
     },
   ];
   tblProductoRecoger: Producto[] = [
     {
-      id_producto: 1, estado: 'Disponible', cantidad: 10, tipo: 'Electrónico',
-    },
-    {
-      id_producto: 2, estado: 'Agotado', cantidad: 0, tipo: 'Ropa',
-    },
-    {
-      id_producto: 3, estado: 'Disponible', cantidad: 5, tipo: 'Libro',
+      idProducto: 1,
+      estado: 'Disponible',
+      cantidad: 10,
+      tipo: 'Electrónico',
     },
   ];
   tblProductoEntregar: Producto[] = [
     {
-      id_producto: 4, estado: 'Disponible', cantidad: 20, tipo: 'Herramientas',
-    },
-    {
-      id_producto: 5, estado: 'Agotado', cantidad: 0, tipo: 'Electrodoméstico',
-    },
-    {
-      id_producto: 6, estado: 'En reparación', cantidad: 2, tipo: 'Electrónico',
+      idProducto: 4,
+      estado: 'Disponible',
+      cantidad: 20,
+      tipo: 'Herramientas',
     },
   ];
 
@@ -60,13 +59,21 @@ export class PageVoluntarioComponent implements OnInit {
     cantidad: [0, [Validators.required]],
   });
 
-  constructor(private loginService: LoginService, private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private loginService: LoginService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
   // Funciones
   ngOnInit(): void {
     // this.displayAlimentoEntregar();
     // this.displayAlimentoRecoger();
     // this.displayProductoEntregar();
     // this.displayProductoRecoger();
+    this.currentUsuarioSimpleData =
+      this.loginService.getCurrentUsuarioSimpleData();
+    this.urlGetDonNoRealizadas();
+    this.urlGetAllSolicitudB();
   }
 
   setCurrentID(id: number) {
@@ -77,19 +84,19 @@ export class PageVoluntarioComponent implements OnInit {
 
   enviarFormColaboresAlimentoRecoger() {}
 
-  displayAlimentoRecoger() {
-    this.loginService.dataTblAlimentoRecoger().subscribe({
-      next: (data) => {
-        this.tblAlimentoRecoger = data;
-      },
-      error: (errorData) => {
-        console.log(errorData);
-      },
-      complete: () => {
-        console.log('Despliegue de datos completo');
-      },
-    });
-  }
+  // displayAlimentoRecoger() {
+  //   this.loginService.dataTblAlimentoRecoger().subscribe({
+  //     next: (data) => {
+  //       this.tblAlimentoRecoger = data;
+  //     },
+  //     error: (errorData) => {
+  //       console.log(errorData);
+  //     },
+  //     complete: () => {
+  //       console.log('Despliegue de datos completo');
+  //     },
+  //   });
+  // }
 
   displayAlimentoEntregar() {
     this.loginService.dataTblAlimentoEntregar().subscribe({
@@ -235,12 +242,126 @@ export class PageVoluntarioComponent implements OnInit {
     this.router.navigateByUrl('pagevolColab');
   }
 
-  enviarFormRecogerProducto(){
+  enviarFormRecogerProducto() {
     console.log('Cantidad', this.formColaboresAlimentoRecoger.value.cantidad);
     this.enviarUsuarioSerRespRecogerProducto();
     this.enviarFormCantColabsResponsableRecogerProducto();
     this.router.navigateByUrl('pagevolColab');
   }
-  
+
   serResponsableRecogerAlimento(id: number) {}
+
+  urlGetDonNoRealizadas() {
+    this.loginService.urlGetDonNoRealizadas().subscribe({
+      next: (data) => {
+        this.tblUrlGetDonNoRealizadas = data;
+      },
+      error: (errorData) => {
+        console.log(errorData);
+      },
+      complete: () => {
+        console.log('Despliegue de datos completo');
+      },
+    });
+    setTimeout(() => {
+      this.tblUrlGetDonacionesNoRealizadasSinResponsable =
+        this.tblUrlGetDonNoRealizadas.filter(
+          (donacion) => donacion.estado === 'SinResponsable'
+        );
+    }, 200);
+  }
+
+  urlEscogerDonResponsable(id: number) {
+    this.loginService
+      .urlEscogerDonResponsable(id, this.currentUsuarioSimpleData.correo)
+      .subscribe({
+        next: (salida) => {
+          console.log('salida: ', salida);
+          // alert('Su solicitud para ser ha sido enviada.')
+        },
+      });
+  }
+  urlEstablecerNroVolDonC(id: number, nrovol: number) {
+    this.loginService
+      .urlEstablecerNroVolDonC(id, this.currentUsuarioSimpleData.correo, nrovol)
+      .subscribe({
+        next: (salida) => {
+          console.log('salida: ', salida);
+          // alert('Su solicitud para ser ha sido enviada.')
+        },
+      });
+  }
+
+  serResponsableRecoger() {
+    // console.log(this.current_id, this.formColaboresAlimentoRecoger.value
+    // .cantidad, this.currentUsuarioSimpleData.correo);
+    
+    if (this.formColaboresAlimentoRecoger.valid) {
+      const num: number = this.formColaboresAlimentoRecoger.value
+        .cantidad as number;
+      this.urlEscogerDonResponsable(this.current_id);
+      setTimeout(() => {
+        this.urlEstablecerNroVolDonC(this.current_id, num);
+      }, 200);
+    }
+    this.formColaboresAlimentoRecoger.reset;
+    this.router.navigateByUrl('pagevolColab');
+  }
+
+  urlGetAllSolicitudB(){
+    this.loginService.urlGetAllSolicitudB().subscribe({
+      next: (data) => {
+        this.tblGetAllSolicitudB = data;
+      },
+      error: (errorData) => {
+        console.log(errorData);
+      },
+      complete: () => {
+        console.log('Despliegue de datos completo');
+      },
+    });
+    setTimeout(() => {
+      this.tblGetAllSolicitudBSinResponsable =
+        this.tblGetAllSolicitudB.filter(
+          (donacion) => donacion.estado === 'SinResponsable'
+        );
+    }, 200);
+  }
+
+  urlEscogerSolResponsable(id: number) {
+    console.log('holl');
+    
+    this.loginService
+      .urlEscogerSolResponsable(id, this.currentUsuarioSimpleData.correo)
+      .subscribe({
+        next: (salida) => {
+          console.log('salida: ', salida);
+          // alert('Su solicitud para ser ha sido enviada.')
+        },
+      });
+  }
+  urlEstablecerNroVolSolC(id: number, nrovol: number) {
+    console.log('holl');
+    this.loginService
+      .urlEstablecerNroVolSolC(id, this.currentUsuarioSimpleData.correo, nrovol)
+      .subscribe({
+        next: (salida) => {
+          console.log('salida: ', salida);
+          // alert('Su solicitud para ser ha sido enviada.')
+        },
+      });
+  }
+
+  serResponsableEntregar() {
+    if (this.formColaboresAlimentoRecoger.valid) {
+      const num: number = this.formColaboresAlimentoRecoger.value
+        .cantidad as number;
+      this.urlEscogerSolResponsable(this.current_id);
+      setTimeout(() => {
+        this.urlEstablecerNroVolSolC(this.current_id, num);
+      }, 200);
+    }
+    this.formColaboresAlimentoRecoger.reset;
+    this.router.navigateByUrl('pagevolColab');
+  }
 }
