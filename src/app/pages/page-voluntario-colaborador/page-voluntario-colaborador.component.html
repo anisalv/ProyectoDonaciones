@@ -1,81 +1,4 @@
-<!-- <p>page-voluntario-colaborador works!</p> -->
 
-<!-- <div class="container mt-4">
-  <div class="alert alert-success" role="alert" *ngIf="mostrarMensaje">
-    Se le enviará un mensaje de confirmación.
-  </div>
-  <h2>Donaciones para Recoger</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Tipo de Donación</th>
-        <th>Detalles de la Donación</th>
-        <th>Disponibilidad</th>
-        <th>Número de Voluntarios</th>
-        <th>Voluntarios Requeridos</th>
-        <th>Cantidad</th>
-        <th>Acción</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let donacion of donacionesRecoger; let i = index">
-        <td>{{ donacion.tipoDonacion }}</td>
-        <td>{{ donacion.detalles }}</td>
-        <td>{{ donacion.disponibilidad | date : "short" }}</td>
-        <td>{{ donacion.nroVoluntarios }}</td>
-        <td>{{ donacion.cantidadRequeridaVoluntarios }}</td>
-        <td>{{ donacion.cantidad }}</td>
-        <td>
-          <button
-            class="btn btn-custom-verde_oscuro"
-            (click)="postular('recoger', i)"
-            [disabled]="
-              donacion.nroVoluntarios >= donacion.cantidadRequeridaVoluntarios
-            "
-          >
-            Postularse
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h2>Donaciones para Entregar</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Tipo de Donación</th>
-        <th>Detalles de la Donación</th>
-        <th>Disponibilidad</th>
-        <th>Número de Voluntarios</th>
-        <th>Voluntarios Requeridos</th>
-        <th>Cantidad</th>
-        <th>Acción</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let donacion of donacionesEntregar; let i = index">
-        <td>{{ donacion.tipoDonacion }}</td>
-        <td>{{ donacion.detalles }}</td>
-        <td>{{ donacion.disponibilidad | date : "short" }}</td>
-        <td>{{ donacion.nroVoluntarios }}</td>
-        <td>{{ donacion.cantidadRequeridaVoluntarios }}</td>
-        <td>{{ donacion.cantidad }}</td>
-        <td>
-          <button
-            class="btn btn-custom-verde_oscuro"
-            (click)="postular('entregar', i)"
-            [disabled]="
-              donacion.nroVoluntarios >= donacion.cantidadRequeridaVoluntarios
-            "
-          >
-            Postularse
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div> -->
 
 
 <h1>Alimento y Productos para recoger</h1>
@@ -92,6 +15,7 @@
         <th scope="col">A/P</th>
         <th scope="col">FechaHoraProg</th>
         <th scope="col">Estado</th>
+        <th scope="col">Ubicación</th>
         <th scope="col">MailResp.</th>
         <th scope="col">#ColReq</th>
         <th scope="col">#Col</th>
@@ -108,6 +32,11 @@
         <td>{{elementA.tipo_ap}}</td>
         <td>{{elementA.fechaHoraProg}}</td>
         <td>{{elementA.estado}}</td>
+        <td>
+          <button (click)="mostrarUbicacion(elementA.ubicacion)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mapa">
+            Ubicación
+          </button>
+        </td>
         <td>{{elementA.correoResponsable}}</td>
         <td>{{elementA.nroRequeridoCol}}</td>
         <td>{{elementA.nroColaboradores}}</td>
@@ -125,4 +54,144 @@
       </tr>
     </tbody>
   </table>
+</div>
+<h1>Alimento y Productos para repartir</h1>
+<button type="button" class="btn btn-custom-azul" (click)="urlGetAllSolicitudB()">Recargar</button>
+<div *ngIf="tblGetAllSolicitudBSinColabaradores">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#id</th>
+        <th scope="col">NombreU</th>
+        <th scope="col">ApellidoU</th>
+        <th scope="col">FonoU</th>
+        <th scope="col">Ctd</th>
+        <th scope="col">A/P</th>
+        <th scope="col">FechaHoraProg</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Ubicación</th>
+        <th scope="col">MailResp.</th>
+        <th scope="col">#ColReq</th>
+        <th scope="col">#Col</th>
+        <th scope="col">¿Ser Responsable?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let eleB of tblGetAllSolicitudBSinColabaradores">
+        <th scope="row">{{eleB.idSolicitud}}</th>
+        <td>{{eleB.nombreU}}</td>
+        <td>{{eleB.apellidoU}}</td>
+        <td>{{eleB.telefonoU}}</td>
+        <td>{{eleB.cantidad}}</td>
+        <td>{{eleB.tipo_ap}}</td>
+        <td>{{eleB.fechaHoraProg}}</td>
+        <td>{{eleB.estado}}</td>
+        <td>
+          <button (click)="mostrarUbicacion(eleB.ubicacion)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mapa">
+            Ubicación
+          </button>
+        </td>
+        <td>{{eleB.correoResponsable}}</td>
+        <td>{{eleB.nroRequeridoCol}}</td>
+        <td>{{eleB.nroColaboradores}}</td>
+        <td>
+          
+          <!-- agregar modal o eliminar -->
+          <button (click)="urlEscogerSolColaborador(eleB.idSolicitud)" type="button" class="btn btn-custom-verde_claro">
+            Ser Colaborador
+          </button>
+          <!-- <button (click)="serColaborador(elementA.idDonacion)" type="button" class="btn btn-custom-verde_claro"
+            data-bs-toggle="modal" data-bs-target="#ModalRecogerAlimento">
+            Ser Colaborador
+          </button> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div *ngIf="tblMisActividades">
+  <h1>Mis actividades</h1>
+  <button
+    type="button"
+    class="btn btn-custom-azul"
+    (click)="urlGetAllDonacionesColaborador()"
+  >
+    Recargar
+  </button>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#id</th>
+        <th scope="col">NombreU</th>
+        <th scope="col">ApellidoU</th>
+        <th scope="col">FonoU</th>
+        <th scope="col">Ctd</th>
+        <th scope="col">A/p</th>
+        <th scope="col">FechaHoraProg</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Ubicación</th>
+        <!-- <th scope="col">MailResp.</th> -->
+        <th scope="col">#ColReq</th>
+        <th scope="col">#Col</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let ma of tblMisActividades"
+      >
+        <th scope="row">{{ ma.idDonacion }}</th>
+        <td>{{ ma.nombreU }}</td>
+        <td>{{ ma.apellidoU }}</td>
+        <td>{{ ma.telefonoU }}</td>
+        <td>{{ ma.cantidad }}</td>
+        <td>{{ ma.tipo_ap }}</td>
+        <td>{{ ma.fechaHoraProg }}</td>
+        <td>{{ ma.estado }}</td>
+        <td>
+          <button (click)="mostrarUbicacion(ma.ubicacion)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mapa">
+            Ubicación
+          </button>
+        </td>
+        <!-- <td>{{ma.correoResponsable}}</td> -->
+        <td>{{ ma.nroRequeridoCol }}</td>
+        <td>{{ ma.nroColaboradores }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="mapa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <google-map
+            height="250px"
+            width="460px"
+            [center]="center"
+            [zoom]="zoom"
+          >
+            <map-marker
+              *ngFor="let markerPosition of markerPositions"
+              [position]="markerPosition"
+              [options]="markerOptions"
+              [label]="label"
+            >
+            </map-marker>
+          </google-map>
+        <!-- {{latitud}}
+        {{longitud}} -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -22,6 +22,9 @@ import { PageDonadorComponent } from './pages/page-donador/page-donador.componen
 import { PageBeneficiarioComponent } from './pages/page-beneficiario/page-beneficiario.component';
 import { PageVoluntarioColaboradorComponent } from './pages/page-voluntario-colaborador/page-voluntario-colaborador.component';
 import { DatosDonacionesComponent } from './pages/datos/datos-donaciones/datos-donaciones.component';
+import { DatosDonadoresComponent } from './pages/datos/datos-donadores/datos-donadores.component';
+import { DatosReceptoresComponent } from './pages/datos/datos-receptores/datos-receptores.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 
 @NgModule({
@@ -43,14 +46,17 @@ import { DatosDonacionesComponent } from './pages/datos/datos-donaciones/datos-d
     PageDonadorComponent,
     PageBeneficiarioComponent,
     PageVoluntarioColaboradorComponent,
-    DatosDonacionesComponent
+    DatosDonacionesComponent,
+    DatosDonadoresComponent,
+    DatosReceptoresComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    GoogleMapsModule
   ],
   providers: [
     provideClientHydration()

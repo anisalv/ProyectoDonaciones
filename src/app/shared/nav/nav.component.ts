@@ -44,10 +44,6 @@ export class NavComponent implements OnInit {
   // usuarioLoginOn: Boolean =true;
   constructor(private loginService: LoginService, private fb: FormBuilder) {}
 
-  // ngOnDestroy(): void {
-  //   // this.loginService.currentUserData.unsubscribe();
-  //   this.loginService.currentUserLoginOn.unsubscribe();
-  // }
 
   ngOnInit(): void {//este oninit se inicia desde la pagina home
     // console.log('', this.currentUsuarioSimpleData);
@@ -141,7 +137,7 @@ export class NavComponent implements OnInit {
       const cadena = `${ubicacion},${tipo_a},${nombre_org},${area_servicio}`;
       this.currentUserCorreoxd = this.loginService.getCurrentCorreoValue();
       this.formSolRol2.correo = this.currentUserCorreoxd;
-      this.formSolRol2.rol = 'Voluntario';
+      this.formSolRol2.rol = 'Donante';
       this.formSolRol2.contenido = cadena;
 
       this.loginService
@@ -192,7 +188,7 @@ export class NavComponent implements OnInit {
 
       this.currentUserCorreoxd = this.loginService.getCurrentCorreoValue();
       this.formSolRol2.correo = this.currentUserCorreoxd;
-      this.formSolRol2.rol = 'Voluntario';
+      this.formSolRol2.rol = 'Receptor';
       this.formSolRol2.contenido = cadena;
 
       this.loginService

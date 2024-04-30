@@ -1,5 +1,5 @@
-interface urlGetAllSolicitudB {
-  idSolicitud: number;
+interface miActividad {
+  idDonacion: number;
   nombreU: string;
   apellidoU: string;
   telefonoU: number;
@@ -12,9 +12,9 @@ interface urlGetAllSolicitudB {
   nroRequeridoCol: number;
   nroColaboradores: number;
 }
-export class urlGetAllSolicitudBC implements urlGetAllSolicitudB {
+export class miActividadC implements miActividad {
   constructor(
-    public idSolicitud: number = 0,
+    public idDonacion: number = 0,
     public nombreU: string = '',
     public apellidoU: string = '',
     public telefonoU: number = 0,

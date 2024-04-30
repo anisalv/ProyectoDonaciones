@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { urlGetDonNoRealizadasC } from '../../services/models/getDonNoRealizadas';
 import { currentUsuarioSimpleDataC } from '../../services/models/currentUsuarioSimpleData';
 import { urlGetAllSolicitudBC } from '../../services/models/urlGetAllSolicitudB';
+import { miActividadC } from '../../services/models/miActividad';
 
 @Component({
   selector: 'app-page-voluntario',
@@ -15,6 +16,9 @@ import { urlGetAllSolicitudBC } from '../../services/models/urlGetAllSolicitudB'
   styleUrl: './page-voluntario.component.css',
 })
 export class PageVoluntarioComponent implements OnInit {
+  partes: string[] = [];
+  latitud: string = '';
+  longitud: string = '';
   // Variables
   currentUsuarioSimpleData: currentUsuarioSimpleDataC =
     new currentUsuarioSimpleDataC();
@@ -23,34 +27,12 @@ export class PageVoluntarioComponent implements OnInit {
   tblUrlGetDonacionesNoRealizadasSinColaboradores: urlGetDonNoRealizadasC[] =
     [];
 
-  
+  tblMisActividades: miActividadC[] = [];
   tblGetAllSolicitudB: urlGetAllSolicitudBC[] = [];
   tblGetAllSolicitudBSinResponsable: urlGetAllSolicitudBC[] = [];
-  tblAlimentoEntregar: Alimento[] = [
-    {
-      idAlimento: 2,
-      fecha_Vencimiento: 'z',
-      estado: 'z',
-      tipo: 'z',
-      cantidad: 2,
-    },
-  ];
-  tblProductoRecoger: Producto[] = [
-    {
-      idProducto: 1,
-      estado: 'Disponible',
-      cantidad: 10,
-      tipo: 'Electrónico',
-    },
-  ];
-  tblProductoEntregar: Producto[] = [
-    {
-      idProducto: 4,
-      estado: 'Disponible',
-      cantidad: 20,
-      tipo: 'Herramientas',
-    },
-  ];
+  tblAlimentoEntregar: Alimento[] = [];
+  tblProductoRecoger: Producto[] = [];
+  tblProductoEntregar: Producto[] = [];
 
   current_id: number = 0;
   current_user?: Usuario; //pasar el valor a traves de los Observables rxjs
@@ -64,39 +46,25 @@ export class PageVoluntarioComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router
   ) {}
+  nuevaPosicion: google.maps.LatLngLiteral = { lat: -16.504912732916537, lng: -68.12993288040161 };
+  markerPositions: google.maps.LatLngLiteral[] = [];
   // Funciones
   ngOnInit(): void {
-    // this.displayAlimentoEntregar();
-    // this.displayAlimentoRecoger();
-    // this.displayProductoEntregar();
-    // this.displayProductoRecoger();
     this.currentUsuarioSimpleData =
       this.loginService.getCurrentUsuarioSimpleData();
+    setTimeout(()=>{
+      this.urlGetAllDonacionesResponsable();
+    }, 100);
     this.urlGetDonNoRealizadas();
     this.urlGetAllSolicitudB();
   }
 
   setCurrentID(id: number) {
     this.current_id = id;
-    // this.current_id.next(id) mandar con el observable al usaurio logueado,
-    // no es necesario el parametro id
   }
 
   enviarFormColaboresAlimentoRecoger() {}
 
-  // displayAlimentoRecoger() {
-  //   this.loginService.dataTblAlimentoRecoger().subscribe({
-  //     next: (data) => {
-  //       this.tblAlimentoRecoger = data;
-  //     },
-  //     error: (errorData) => {
-  //       console.log(errorData);
-  //     },
-  //     complete: () => {
-  //       console.log('Despliegue de datos completo');
-  //     },
-  //   });
-  // }
 
   displayAlimentoEntregar() {
     this.loginService.dataTblAlimentoEntregar().subscribe({
@@ -153,10 +121,6 @@ export class PageVoluntarioComponent implements OnInit {
         complete: () => {
           //confirmacion
           console.log('login completo');
-          //cuando una conexion se completa, se nos envia a la ruta: /datausuario
-          // this.router.navigateByUrl('/datausuario');
-          //se vacian los datos del formulario
-          // this.formColaboresAlimentoRecoger.reset();
         },
       });
   }
@@ -295,17 +259,24 @@ export class PageVoluntarioComponent implements OnInit {
   serResponsableRecoger() {
     // console.log(this.current_id, this.formColaboresAlimentoRecoger.value
     // .cantidad, this.currentUsuarioSimpleData.correo);
-    
-    if (this.formColaboresAlimentoRecoger.valid) {
-      const num: number = this.formColaboresAlimentoRecoger.value
-        .cantidad as number;
-      this.urlEscogerDonResponsable(this.current_id);
-      setTimeout(() => {
-        this.urlEstablecerNroVolDonC(this.current_id, num);
-      }, 200);
+    if(this.currentUsuarioSimpleData.rol==='Voluntario' && this.currentUsuarioSimpleData.rolVol === 'Responsable'){
+      if (this.formColaboresAlimentoRecoger.valid) {
+        const num: number = this.formColaboresAlimentoRecoger.value
+          .cantidad as number;
+        this.urlEscogerDonResponsable(this.current_id);
+        setTimeout(() => {
+          this.urlEstablecerNroVolDonC(this.current_id, num);
+          this.formColaboresAlimentoRecoger.reset();
+        }, 500);
+        setTimeout(() => {
+          this.router.navigateByUrl('pagevolColab');
+        }, 1250);
+      }
+      this.formColaboresAlimentoRecoger.reset();
+    } else {
+      alert('Usted no es usuario Voluntario-Responsable')
     }
-    this.formColaboresAlimentoRecoger.reset;
-    this.router.navigateByUrl('pagevolColab');
+
   }
 
   urlGetAllSolicitudB(){
@@ -353,15 +324,67 @@ export class PageVoluntarioComponent implements OnInit {
   }
 
   serResponsableEntregar() {
-    if (this.formColaboresAlimentoRecoger.valid) {
-      const num: number = this.formColaboresAlimentoRecoger.value
-        .cantidad as number;
-      this.urlEscogerSolResponsable(this.current_id);
-      setTimeout(() => {
-        this.urlEstablecerNroVolSolC(this.current_id, num);
-      }, 200);
+
+    if(this.currentUsuarioSimpleData.rol==='Voluntario' && this.currentUsuarioSimpleData.rolVol === 'Responsable'){
+      if (this.formColaboresAlimentoRecoger.valid) {
+        const num: number = this.formColaboresAlimentoRecoger.value
+          .cantidad as number;
+        this.urlEscogerSolResponsable(this.current_id);
+        setTimeout(() => {
+          this.urlEstablecerNroVolSolC(this.current_id, num);
+        }, 200);
+      }
+      this.formColaboresAlimentoRecoger.reset;
+      this.router.navigateByUrl('pagevolColab');
+    } else {
+      alert('Usted no es usuario Voluntario-Responsable')
     }
-    this.formColaboresAlimentoRecoger.reset;
-    this.router.navigateByUrl('pagevolColab');
   }
+
+  urlGetAllDonacionesResponsable(){
+    this.loginService.urlGetAllDonacionesResponsable(this.currentUsuarioSimpleData.correo).subscribe({
+      next: (data) => {
+        this.tblMisActividades = data;
+      },
+      error: (errorData) => {
+        console.log(errorData);
+      },
+      complete: () => {
+        console.log('Despliegue de datos completo');
+      },
+    });
+  }
+  center: google.maps.LatLngLiteral = {
+    lat: -16.504912732916537,
+    lng: -68.12993288040161,
+  };
+  mostrarUbicacion(coords: string){
+    const latlang = coords.split(',');
+
+    // partes[0] contendrá la primera parte de la cadena antes de la coma
+    this.latitud = latlang[0];
+
+    // partes[1] contendrá la segunda parte de la cadena después de la coma
+    this.longitud = latlang[1];
+    console.log(this.latitud, this.longitud);
+    this.markerPositions[0]= { lat: parseFloat(this.latitud) , lng: parseFloat(this.longitud) };
+    this.center = { lat: parseFloat(this.latitud) , lng: parseFloat(this.longitud) };
+  }
+
+  label = {
+    color: 'red',
+    text: 'Marcador',
+  };
+
+  
+  zoom = 17;
+  markerOptions: google.maps.marker.AdvancedMarkerElementOptions = {
+    gmpDraggable: false
+  }
+  // addmarker(event: google.maps.MapMouseEvent) {
+  //   if (event.latLng != null) {
+  //     this.markerPositions[0]= event.latLng.toJSON();
+  //   };
+  //   console.log(this.markerPositions[0].lat, this.markerPositions[0].lng);
+  // }
 }
