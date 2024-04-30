@@ -1,5 +1,7 @@
+/* Importa Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
+/* Estilos generales */
 * {
   margin: 0;
   padding: 0;
@@ -14,6 +16,7 @@ body {
   background: #fafafa;
 }
 
+/* Estilo del Header */
 header {
   text-align: center;
   background: #053c40;
@@ -38,43 +41,34 @@ header a:focus {
   color: #6ca40d;
 }
 
+/* Sección Hero */
 .hero-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.8);
   min-height: 90vh;
+  background-color: rgba(255, 255, 255, 0.8);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  
 }
-  
 
 .hero-section h1 {
   color: #053c40;
   font-size: 2rem;
-  margin-bottom: 1rm;
-  margin-top: 32vh; 
-}
-
-.hero-section h2 {
-  opacity: 0.5;
-  font-size: 2rem;
-  margin-top: 20vh; 
+  margin-bottom: 1rem;
 }
 
 .hero-section p {
   color: #333;
   font-size: 1rem;
   line-height: 1.5;
- /* max-width: 640px;*/
   text-align: center;
-  margin: 7vh;
+  padding: 0 2rem;
 }
-/***********************************/
+
+/* Estilo de Botones */
 .donate-button {
   background-color: #6ca40d;
   color: #fff;
@@ -83,29 +77,17 @@ header a:focus {
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: 1rem;
 }
 
 .donate-button:hover {
   background-color: #1fbab9;
 }
-  .hero-section h1 {
-    font-size: 1.75rem;
-  }
 
-  .hero-section p {
-    padding: 0 2rem;
-  }
-
-  .donate-button {
-    padding: 0.75rem 1.5rem;
-  }
-/**********************/
+/* Sección Footer */
 .footer {
   background-color: #f4fcfb;
   padding: 2rem 1rem;
   text-align: center;
-  margin-bottom: 0px;
 }
 
 .footer h3 {
@@ -119,12 +101,12 @@ header a:focus {
 }
 
 .footer p {
-  font-size: 0.97rem;
-  margin-bottom: 1rem;
+  font-size: 1rem;
   line-height: 1.5;
   color: #053c40;
-}  
+}
 
+/* Contenedores y Slider */
 .container {
   width: 100vw; 
   height: 450px; 
@@ -170,4 +152,41 @@ img {
 .vision {
   background-color: #c9e4e4;
   color: #fff;
+}
+
+.contact {
+  background-color: #ffffff; 
+  padding: 40px; 
+  max-width: 2000px; 
+  margin: 50px auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+}
+
+.contact h2 {
+  font-size: 24px;
+  text-align: center;
+  color: #333; 
+  margin-bottom: 20px; 
+}
+
+.contact-table {
+  width: 100%; 
+  border-collapse: collapse; 
+}
+
+.contact-table th,
+.contact-table td {
+  padding: 10px; 
+  text-align: left; 
+}
+
+.contact-table th {
+  font-weight: bold; 
+  color: #555; 
+}
+
+.contact-table td {
+  font-size: 18px; 
+  color: #333; 
 }

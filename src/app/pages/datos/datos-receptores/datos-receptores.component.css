@@ -1,0 +1,30 @@
+.btn-custom-azul {
+    background-color: #3498db;
+    color: white;
+    border: none;
+  }
+  
+  .btn-custom-azul:hover {
+    background-color: #2980b9;
+  }
+  
+  .table-responsive {
+    padding: 1rem;
+  }
+  
+  .table {
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    text-align: center;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f2f2;
+  }
+  
+  .table-bordered th, .table-bordered td {
+    border: 1px solid #ddd;
+  }
+  

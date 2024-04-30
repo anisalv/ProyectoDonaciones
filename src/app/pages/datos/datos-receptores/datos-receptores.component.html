@@ -1,27 +1,41 @@
-<button type="button" class="btn btn-custom-azul" (click)="urlGetAllReceptores()">Recargar</button>
-<table class="table">
-  <thead>
-    <tr>
-      <!-- <th scope="col">#id</th> -->
-      <th scope="col">Nombre de Usuario</th>
-      <th scope="col">Apellido</th>
-      <th scope="col">Correo</th>
-      <th scope="col">Teléfono</th>
-      <th scope="col">Estado Gral.</th>
-      <th scope="col">Razón Social</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let volunt of receptores">
-      <!-- <th scope="row">{{volunt.id}}</th> -->
-      <td>{{volunt.nombreUser}}</td>
-      <td>{{volunt.apellidoUser}}</td>
-      <td>{{volunt.correo}}</td>
-      <td>{{volunt.telefono}}</td>
-      <td>{{volunt.estado}}</td>
-      <td>{{volunt.nombreOrg}}</td>
-    </tr>
-  </tbody>
-</table>
+<!-- HTML -->
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <button type="button" class="btn btn-primary" (click)="urlGetAllReceptores()">Recargar</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <!-- <th scope="col">#id</th> -->
+              <th scope="col">Nombre de Usuario</th>
+              <th scope="col">Apellido</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Teléfono</th>
+              <th scope="col">Estado Gral.</th>
+              <th scope="col">Razón Social</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let volunt of receptores">
+              <!-- <th scope="row">{{volunt.id}}</th> -->
+              <td>{{volunt.nombreUser}}</td>
+              <td>{{volunt.apellidoUser}}</td>
+              <td>{{volunt.correo}}</td>
+              <td>{{volunt.telefono}}</td>
+              <td>{{volunt.estado}}</td>
+              <td>{{volunt.nombreOrg}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
