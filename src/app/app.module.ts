@@ -49,7 +49,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     DatosDonacionesComponent,
     DatosDonadoresComponent,
     DatosReceptoresComponent
-  ],
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

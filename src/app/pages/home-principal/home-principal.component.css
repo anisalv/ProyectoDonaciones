@@ -190,3 +190,34 @@ img {
   font-size: 18px; 
   color: #333; 
 }
+
+.text-justified {
+  text-align: justify;
+}
+
+.tabulado {
+  padding: 10px;
+  border: 1px;
+}
+/* Archivo: style.css */
+
+/* Estilo para el botón flotante "Scroll to Top" */
+#scroll-to-top {
+	position: fixed; /* Para que el botón esté siempre visible */
+	bottom: 20px; /* Ajusta la posición desde el borde inferior */
+	right: 20px; /* Ajusta la posición desde el borde derecho */
+	display: none; /* Oculto por defecto */
+	background-color: #007bff; /* Color del botón */
+	color: white; /* Color del texto */
+	border-radius: 50%; /* Hace que el botón sea circular */
+	border: none; /* Sin bordes */
+	padding: 10px; /* Tamaño del botón */
+	cursor: pointer; /* Cambia el cursor a mano al pasar por encima */
+	z-index: 1000; /* Para que esté por encima de otros elementos */
+  }
+  
+  /* Efecto hover para cambiar el color cuando el usuario pasa el cursor */
+  #scroll-to-top:hover {
+	background-color: #0056b3; /* Color del botón al pasar el cursor */
+  }
+  

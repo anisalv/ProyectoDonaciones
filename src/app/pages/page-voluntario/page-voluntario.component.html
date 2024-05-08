@@ -1,5 +1,12 @@
-<!-- <p>page-voluntario works!</p> -->
-<h1>Alimento y Productos para recoger</h1>
+<h1 style="text-align: center;" class="uppercase">Página de Usuario Voluntario</h1>
+<p style="text-align: center; font-weight: bold;" >
+  Bienvenido a la página de Voluntarios
+
+  Gracias por tu interés en ser parte de nuestra comunidad de voluntarios. Aquí tienes la oportunidad de marcar la diferencia y contribuir a una causa que beneficia a muchas personas. Te invitamos a postular como voluntario para ayudarnos en la recogida o entrega de productos y alimentos a quienes más lo necesitan.
+</p>
+<div class="flex-line-container"></div>
+<h1 style="text-align: center;">Alimento y Productos para recoger</h1>
+<p style="text-align: center;">Como voluntario de recogida, serás responsable de recolectar alimentos y otros productos de diferentes ubicaciones.</p>
 <button
   type="button"
   class="btn btn-custom-azul"
@@ -7,9 +14,9 @@
 >
   Recargar
 </button>
-<div *ngIf="tblUrlGetDonacionesNoRealizadasSinResponsable">
-  <table class="table">
-    <thead>
+<div *ngIf="tblUrlGetDonacionesNoRealizadasSinResponsable" class="container my-4">
+  <table class="table table-striped table-hover">
+    <thead class="thead-dark">
       <tr>
         <th scope="col">#id</th>
         <th scope="col">NombreU</th>
@@ -39,8 +46,8 @@
         <td>{{ elementA.fechaHoraProg }}</td>
         <td>{{ elementA.estado }}</td>
         <td>
-          <button (click)="mostrarUbicacion(elementA.ubicacion)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mapa">
-            Ubicación
+          <button (click)="mostrarUbicacion(elementA.ubicacion)" type="button" class="btn-custom-verde" data-bs-toggle="modal" data-bs-target="#mapa">
+            Ver ubicación
           </button>
         </td>
         <!-- <td>{{elementA.correoResponsable}}</td> -->
@@ -115,7 +122,9 @@
     </div>
   </div>
 </div>
-<h1>Alimento y Productos para distribuir</h1>
+<div class="flex-line-container"></div>
+<h1 style="text-align: center;">Alimento y Productos para distribuir</h1>
+<p style="text-align: center;">Si te unes como voluntario de distribución, tu misión será llevar productos y alimentos a los puntos de distribución o directamente a las personas y familias que los necesiten.</p>
 <button
   type="button"
   class="btn btn-custom-azul"
@@ -123,7 +132,7 @@
 >
   Recargar
 </button>
-<div *ngIf="tblUrlGetDonacionesNoRealizadasSinResponsable">
+<div *ngIf="tblUrlGetDonacionesNoRealizadasSinResponsable" class="container my-4">
   <table class="table">
     <thead>
       <tr>
@@ -229,9 +238,9 @@
     </div>
   </div>
 </div>
-
+<div class="flex-line-container"></div>
 <div *ngIf="tblMisActividades">
-  <h1>Mis actividades</h1>
+  <h1 style="text-align: center;">Mis actividades</h1>
   <button
     type="button"
     class="btn btn-custom-azul"
@@ -239,8 +248,8 @@
   >
     Recargar
   </button>
-
-  <table class="table">
+<div class="container my-4">
+  <table class="table table-striped table-hover" >
     <thead>
       <tr>
         <th scope="col">#id</th>
@@ -280,6 +289,7 @@
       </tr>
     </tbody>
   </table>
+</div>
 </div>
 
 <!-- Modal -->

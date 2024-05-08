@@ -1,10 +1,9 @@
 
 
-
-<h1>Alimento y Productos para recoger</h1>
+<h1 style="text-align: center;">Alimento y Productos para recoger</h1>
 <button type="button" class="btn btn-custom-azul" (click)="urlGetDonNoRealizadas()">Recargar</button>
 <div *ngIf="tblUrlGetDonacionesNoRealizadasSinColaboradores">
-  <table class="table">
+  <table class="table table-striped table-hover">
     <thead>
       <tr>
         <th scope="col">#id</th>
@@ -43,7 +42,7 @@
         <td>
           
           <!-- agregar modal o eliminar -->
-          <button (click)="serColaborador(elementA.idDonacion)" type="button" class="btn btn-custom-verde_claro">
+          <button (click)="serColaborador(elementA.idDonacion)" type="button" class="btn btn-custom-verde">
             Ser Colaborador
           </button>
           <!-- <button (click)="serColaborador(elementA.idDonacion)" type="button" class="btn btn-custom-verde_claro"
@@ -55,10 +54,11 @@
     </tbody>
   </table>
 </div>
-<h1>Alimento y Productos para repartir</h1>
+<div class="flex-line-container"></div>
+<h1 style="text-align: center;">Alimento y Productos para repartir</h1>
 <button type="button" class="btn btn-custom-azul" (click)="urlGetAllSolicitudB()">Recargar</button>
 <div *ngIf="tblGetAllSolicitudBSinColabaradores">
-  <table class="table">
+  <table class="table table-striped table-hover">
     <thead>
       <tr>
         <th scope="col">#id</th>
@@ -110,9 +110,10 @@
   </table>
 </div>
 
-
-<div *ngIf="tblMisActividades">
-  <h1>Mis actividades</h1>
+<div class="flex-line-container"></div>
+<div *ngIf="tblMisActividades" style="text-align: center;">
+  <h1>Mis actividades</h1></div>
+  <div>
   <button
     type="button"
     class="btn btn-custom-azul"
@@ -121,7 +122,7 @@
     Recargar
   </button>
 
-  <table class="table">
+  <table class="table table-striped table-hover">
     <thead>
       <tr>
         <th scope="col">#id</th>
@@ -151,7 +152,7 @@
         <td>{{ ma.fechaHoraProg }}</td>
         <td>{{ ma.estado }}</td>
         <td>
-          <button (click)="mostrarUbicacion(ma.ubicacion)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mapa">
+          <button (click)="mostrarUbicacion(ma.ubicacion)" type="button" class="btn btn-custom-verde" data-bs-toggle="modal" data-bs-target="#mapa">
             Ubicación
           </button>
         </td>

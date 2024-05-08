@@ -1,8 +1,10 @@
 <button type="button" class="btn btn-custom-azul" (click)="display()">Recargar</button>
-<div class="container">
+<div class="container my-4">
   <!-- <a (click)="urlGetAllAlimentos()" >Recargar</a> -->
-  <table class="table">
-    <thead>
+  <p style="text-align: center;">Aquí se listan las donaciones recibidas por el sistema de donaciones. Estos aportes son vitales para nuestra operación.</p>
+  <h2 class="title-uppercase">Alimentos</h2>
+  <table class="table table-striped table-hover">
+    <thead class="thead-dark">
       <tr>
         <th scope="col">#IDAlimento</th>
         <th scope="col">F_Vencimiento</th>
@@ -23,11 +25,11 @@
     </tbody>
   </table>
 </div>
-<div class="container">
-<h1>Productos</h1>
+<div class="container my-4">
+<h2 class="title-uppercase">Productos</h2>
 <!-- <a (click)="urlGetAllAlimentos()" >Recargar</a> -->
-<table class="table">
-  <thead>
+<table class="table table-striped table-hover">
+  <thead class="thead-dark">
     <tr>
       <th scope="col">#IDProducto</th>
       <th scope="col">Estado</th>
