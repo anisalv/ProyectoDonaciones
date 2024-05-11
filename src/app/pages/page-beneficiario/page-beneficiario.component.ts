@@ -40,6 +40,7 @@ export class PageBeneficiarioComponent {
     this.currentUsuarioSimpleData =
       this.loginService.getCurrentUsuarioSimpleData();
     this.display();
+    this.markerPositions.push(this.nuevaPosicion);
   }
 
   urlGetAllAlimentos() {
@@ -198,7 +199,7 @@ export class PageBeneficiarioComponent {
       // Construir la cadena de fecha en el formato deseado
       const fechaTransformada = `${dia}/${mes}/${anio}/${horas}/${minutos}`;
       let ubi: string = `${this.markerPositions[0].lat},${this.markerPositions[0].lng}`;
-      if (this.formBenefAlimento.valid) {
+      if (this.formBenefAlimento.valid && this.markerPositions[0] !== this.nuevaPosicion) {
         if (this.suma > 0) {
           console.log(
             this.currentUsuarioSimpleData.correo,
@@ -233,7 +234,7 @@ export class PageBeneficiarioComponent {
           alert('Debe elegir un producto antes de enviar.');
         }
       } else {
-        alert('No olvide agregar la fecha de envio');
+        alert('No olvide llenar todos los campos');
       }
     } else {
       alert('Usted no es un Usuario receptor');

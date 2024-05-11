@@ -25,8 +25,11 @@ export class PageDonadorComponent implements OnInit {
   ) {}
   currentUsuarioSimpleData: currentUsuarioSimpleDataC =
     new currentUsuarioSimpleDataC();
-  
-  nuevaPosicion: google.maps.LatLngLiteral = { lat: -16.504912732916537, lng: -68.12993288040161 };
+
+  nuevaPosicion: google.maps.LatLngLiteral = {
+    lat: -16.504912732916537,
+    lng: -68.12993288040161,
+  };
   markerPositions: google.maps.LatLngLiteral[] = [];
   ngOnInit(): void {
     this.markerPositions.push(this.nuevaPosicion);
@@ -43,7 +46,7 @@ export class PageDonadorComponent implements OnInit {
   tipodonacion: string = '';
   donacionForm = this.fb.group({
     correo: [''],
-    cantidad: [0, [Validators.required]],
+    cantidad: [0, ],
     // cantidad: [0, [Validators.required]],
     fechaHoraRecogida: ['', [Validators.required]],
     tipo_ap: [''],
@@ -66,30 +69,31 @@ export class PageDonadorComponent implements OnInit {
   }
 
   enviarFormDonacion() {
-    this.currentUsuarioSimpleData =
-      this.loginService.getCurrentUsuarioSimpleData();
+    if (this.donacionForm.valid && this.markerPositions[0] !== this.nuevaPosicion && this.concat!=="") {
+      this.currentUsuarioSimpleData =
+        this.loginService.getCurrentUsuarioSimpleData();
 
-    const fechaObjeto = new Date(
-      this.donacionForm.value.fechaHoraRecogida as string
-    );
+      const fechaObjeto = new Date(
+        this.donacionForm.value.fechaHoraRecogida as string
+      );
 
-    // Obtener los componentes de la fecha
-    const dia = fechaObjeto.getDate().toString().padStart(2, '0'); // Día con dos dígitos (padStart se utiliza para agregar un cero inicial si es necesario)
-    const mes = (fechaObjeto.getMonth() + 1).toString().padStart(2, '0'); // Mes comienza desde 0, por lo que se suma 1 (padStart se utiliza para agregar un cero inicial si es necesario)
-    const anio = fechaObjeto.getFullYear();
-    const horas = fechaObjeto.getHours().toString().padStart(2, '0'); // Horas con dos dígitos (padStart se utiliza para agregar un cero inicial si es necesario)
-    const minutos = fechaObjeto.getMinutes().toString().padStart(2, '0'); // Minutos con dos dígitos (padStart se utiliza para agregar un cero inicial si es necesario)
+      // Obtener los componentes de la fecha
+      const dia = fechaObjeto.getDate().toString().padStart(2, '0'); // Día con dos dígitos (padStart se utiliza para agregar un cero inicial si es necesario)
+      const mes = (fechaObjeto.getMonth() + 1).toString().padStart(2, '0'); // Mes comienza desde 0, por lo que se suma 1 (padStart se utiliza para agregar un cero inicial si es necesario)
+      const anio = fechaObjeto.getFullYear();
+      const horas = fechaObjeto.getHours().toString().padStart(2, '0'); // Horas con dos dígitos (padStart se utiliza para agregar un cero inicial si es necesario)
+      const minutos = fechaObjeto.getMinutes().toString().padStart(2, '0'); // Minutos con dos dígitos (padStart se utiliza para agregar un cero inicial si es necesario)
 
-    // Construir la cadena de fecha en el formato deseado
-    const fechaTransformada = `${dia}/${mes}/${anio}/${horas}/${minutos}`;
-    // console.log(this.donacionForm.value.fecha_hora);
-    // if(this.donacionForm.valid){
+      // Construir la cadena de fecha en el formato deseado
+      const fechaTransformada = `${dia}/${mes}/${anio}/${horas}/${minutos}`;
+      // console.log(this.donacionForm.value.fecha_hora);
+      // if(this.donacionForm.valid){
       this.donacionForm.patchValue({
         correo: this.currentUsuarioSimpleData.correo,
         fechaHoraRecogida: fechaTransformada,
         tipo_ap: this.concat,
         cantidad: this.sumaProd,
-        ubicacion: `${this.markerPositions[0].lat},${this.markerPositions[0].lng}`
+        ubicacion: `${this.markerPositions[0].lat},${this.markerPositions[0].lng}`,
       });
       console.log(this.donacionForm);
       // console.log(this.donacionForm.value);
@@ -111,10 +115,10 @@ export class PageDonadorComponent implements OnInit {
           alert('Usted NO es un usuario Donante');
         }
       }, 200);
-    // } else {
-    //   this.donacionForm.markAllAsTouched();
-    //   alert('Error al ingresar los datos');
-    // }
+    }else {
+      this.donacionForm.markAllAsTouched();
+      alert('Error al ingresar los datos');
+    }
   }
 
   enviarFormAlimento() {
@@ -235,6 +239,7 @@ export class PageDonadorComponent implements OnInit {
     this.newProductos = [];
     this.sumaProd = 0;
     this.donacionForm.reset();
+    this.markerPositions[0] = this.nuevaPosicion;
   }
   concatenar() {
     this.concat = '';
@@ -276,13 +281,12 @@ export class PageDonadorComponent implements OnInit {
   };
   zoom = 17;
   markerOptions: google.maps.marker.AdvancedMarkerElementOptions = {
-    gmpDraggable: false
-  }
+    gmpDraggable: false,
+  };
   addmarker(event: google.maps.MapMouseEvent) {
     if (event.latLng != null) {
-      this.markerPositions[0]= event.latLng.toJSON();
-    };
+      this.markerPositions[0] = event.latLng.toJSON();
+    }
     console.log(this.markerPositions[0].lat, this.markerPositions[0].lng);
   }
-
 }
