@@ -19,6 +19,9 @@
   .btn-custom-azul:hover {
     background-color: #053c40; 
   }  
+  .btn-custom-verde:hover {
+    background-color: #4b700a; 
+  }  
   
   .table {
     border-collapse: separate; 

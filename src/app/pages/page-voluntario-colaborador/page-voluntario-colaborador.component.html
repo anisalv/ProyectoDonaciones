@@ -32,7 +32,7 @@
         <td>{{elementA.fechaHoraProg}}</td>
         <td>{{elementA.estado}}</td>
         <td>
-          <button (click)="mostrarUbicacion(elementA.ubicacion)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mapa">
+          <button (click)="mostrarUbicacion(elementA.ubicacion)" type="button" class="btn btn-custom-verde" data-bs-toggle="modal" data-bs-target="#mapa">
             Ubicación
           </button>
         </td>
@@ -42,7 +42,7 @@
         <td>
           
           <!-- agregar modal o eliminar -->
-          <button (click)="serColaborador(elementA.idDonacion)" type="button" class="btn btn-custom-verde">
+          <button (click)="serColaborador(elementA.idDonacion)" type="button" class="btn btn-custom-azul">
             Ser Colaborador
           </button>
           <!-- <button (click)="serColaborador(elementA.idDonacion)" type="button" class="btn btn-custom-verde_claro"
@@ -87,7 +87,7 @@
         <td>{{eleB.fechaHoraProg}}</td>
         <td>{{eleB.estado}}</td>
         <td>
-          <button (click)="mostrarUbicacion(eleB.ubicacion)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mapa">
+          <button (click)="mostrarUbicacion(eleB.ubicacion)" type="button" class="btn btn-custom-verde" data-bs-toggle="modal" data-bs-target="#mapa">
             Ubicación
           </button>
         </td>
@@ -97,7 +97,7 @@
         <td>
           
           <!-- agregar modal o eliminar -->
-          <button (click)="urlEscogerSolColaborador(eleB.idSolicitud)" type="button" class="btn btn-custom-verde_claro">
+          <button (click)="urlEscogerSolColaborador(eleB.idSolicitud)" type="button" class="btn btn-custom-verde">
             Ser Colaborador
           </button>
           <!-- <button (click)="serColaborador(elementA.idDonacion)" type="button" class="btn btn-custom-verde_claro"
@@ -191,7 +191,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-custom-verde">Save changes</button>
       </div>
     </div>
   </div>

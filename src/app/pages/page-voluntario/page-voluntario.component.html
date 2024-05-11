@@ -46,7 +46,7 @@
         <td>{{ elementA.fechaHoraProg }}</td>
         <td>{{ elementA.estado }}</td>
         <td>
-          <button (click)="mostrarUbicacion(elementA.ubicacion)" type="button" class="btn-custom-verde" data-bs-toggle="modal" data-bs-target="#mapa">
+          <button (click)="mostrarUbicacion(elementA.ubicacion)" type="button" class="btn-custom-azul" data-bs-toggle="modal" data-bs-target="#mapa">
             Ver ubicación
           </button>
         </td>
@@ -57,7 +57,7 @@
           <button
             (click)="setCurrentID(elementA.idDonacion)"
             type="button"
-            class="btn btn-custom"
+            class="btn btn-custom-azul"
             data-bs-toggle="modal"
             data-bs-target="#ModalRecogerAlimento"
           >
@@ -108,7 +108,7 @@
             </div>
             <button
               type="submit"
-              class="btn btn-primary"
+              class="btn btn-custom-azul"
               data-bs-dismiss="modal"
             >
               Enviar
@@ -162,7 +162,7 @@
         <td>{{ elemRep.fechaHoraProg }}</td>
         <td>{{ elemRep.estado }}</td>
         <td>
-          <button (click)="mostrarUbicacion(elemRep.ubicacion)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mapa">
+          <button (click)="mostrarUbicacion(elemRep.ubicacion)" type="button" class="btn btn-custom-azul" data-bs-toggle="modal" data-bs-target="#mapa">
             Ubicación
           </button>
         </td>
@@ -173,7 +173,7 @@
           <button
             (click)="setCurrentID(elemRep.idSolicitud)"
             type="button"
-            class="btn btn-custom"
+            class="btn btn-custom-azul"
             data-bs-toggle="modal"
             data-bs-target="#ModalEntregarAlimento"
           >
@@ -279,7 +279,7 @@
         <td>{{ ma.fechaHoraProg }}</td>
         <td>{{ ma.estado }}</td>
         <td>
-          <button (click)="mostrarUbicacion(ma.ubicacion)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mapa">
+          <button (click)="mostrarUbicacion(ma.ubicacion)" type="button" class="btn btn-custom-azul" data-bs-toggle="modal" data-bs-target="#mapa">
             Ubicación
           </button>
         </td>
