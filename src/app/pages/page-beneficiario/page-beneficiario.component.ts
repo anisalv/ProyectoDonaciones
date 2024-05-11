@@ -142,8 +142,7 @@ export class PageBeneficiarioComponent {
         let alimento: string = this.alimentos.find((a) => a.idAlimento === i)
           ?.tipo as string;
         if (this.arrayObjetosAli[i] > 0) {
-          this.contConcatAli +=
-            this.arrayObjetosAli[i].toString() + alimento + ',';
+          this.contConcatAli += this.arrayObjetosAli[i].toString()+ '.' + i + ',';
           this.suma += this.arrayObjetosAli[i];
         }
       }
@@ -159,26 +158,32 @@ export class PageBeneficiarioComponent {
         let producto: string = this.productos.find((a) => a.idProducto === i)
           ?.tipo as string;
         if (this.arrayObjetosProd[i] > 0) {
-          this.contConcatAli +=
-            this.arrayObjetosProd[i].toString() + producto + ',';
+          this.contConcatProd +=
+            this.arrayObjetosProd[i].toString() + '.'+ i + ',';
           this.suma += this.arrayObjetosProd[i];
         }
       }
     }
-    console.log(this.contConcatProd, '\n', this.suma);
+    // console.log(this.contConcatProd, '\n', this.suma);
 
+
+    console.log(this.contConcatProd);
+    console.log(this.contConcatAli);
     if (this.contConcatAli === '' && this.contConcatProd !== '') {
       // contConcatAli esta vacio
       this.contConcatProd = this.contConcatProd.slice(0, -1); // se elimina la ultima , de contConcatProd
-      this.contConcatCompleto = this.contConcatProd;
-    } else if (this.contConcatAli !== '' && this.contConcatProd === '') {
+      this.contConcatCompleto = ';'+this.contConcatProd;
+      console.log('contConcatAli esta vacio');
+    } else if (this.contConcatAli !== '' && this.contConcatProd === '') { // solo productos
       this.contConcatAli = this.contConcatAli.slice(0, -1); // se elimina la ultima , de contConcatProd
-      this.contConcatCompleto = this.contConcatAli;
+      this.contConcatCompleto = this.contConcatAli+';';
+      console.log('contConcatProd esta vacio');
     } else if (this.contConcatAli !== '' && this.contConcatProd !== '') {
       this.contConcatProd = this.contConcatProd.slice(0, -1); // se elimina la ultima , de contConcatProd
       this.contConcatAli = this.contConcatAli.slice(0, -1); // se elimina la ultima , de contConcatProd
-      this.contConcatCompleto = this.contConcatProd + this.contConcatAli;
+      this.contConcatCompleto = this.contConcatAli + ';' + this.contConcatProd;
     }
+    console.log(this.contConcatCompleto);
   }
 
   enviarFormBenefAlimento() {
